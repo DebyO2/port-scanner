@@ -8,6 +8,6 @@
 
     2.settings > change the settings 
  
- #commands inside settings 
+ # commands inside settings 
  
     1.change > change the timeout setting
