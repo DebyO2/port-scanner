@@ -1,12 +1,12 @@
 import socket
 import os
 from time import sleep
+
 try:
 	import pyperclip
 	import Keyboard
 
 except ImportError:
-
 	os.system("pip3 install pyperclip")
 	os.system("pip3 install keyboard")
 
@@ -15,9 +15,12 @@ finally:
 	import keyboard
 	import pyperclip
 
+
 time = 0
 
 output = "a"
+
+otp = []
 
 def change_settings():
 		global time
@@ -35,7 +38,7 @@ def see_settings():
 
 if __name__ == '__main__':
 
-	
+	os.system("cls")
 	while True:
 		e = input("Command> ").lower()
 		if e == "run":
@@ -68,9 +71,11 @@ if __name__ == '__main__':
 						pyperclip.copy(output)
 						sleep(0.25)
 						break
+						os.system("cls")
 
 					else:
 						break
+						os.system("cls")
 
 
 
@@ -79,19 +84,33 @@ if __name__ == '__main__':
 				port = input("Port range: ").split("-")
 
 				def scan(p1,p2):
-					
+					global otp
+
 					for i in range(p1, p2+1):
 
 						if s.connect_ex((host,i)):
 							print(f"port {i}: closed" )
+							otp.append(f"port {i}: closed")
 
 						else:
 							print(f"port {i}: open")
+							otp.append(f"port {i}: open")
 
 				scan(int(port[0]), int(port[1]))
-				a = input()
-				os.system("cls")
 
+				print("press c to copy")
+				while True:
+					if keyboard.is_pressed('c'):
+						w = str(otp).replace("'","").replace("[","").replace("]","").replace(",","\n")
+						pyperclip.copy()
+						sleep(0.25)
+						break
+						os.system("cls")
+
+					else:
+						break
+						os.system("cls")
+				
 			else:
 				print("#unknown scan type")
 
