@@ -1,28 +1,23 @@
 import socket
 import os
+from time import sleep
 try:
 	import pyperclip
-	from pynput.keyboard import Listener
+	import Keyboard
 
 except ImportError:
 
 	os.system("pip3 install pyperclip")
 	os.system("pip3 install keyboard")
 
+finally:
+
+	import keyboard
+	import pyperclip
+
 time = 0
-output = None
 
-def copy_otp(a):
-	pyperclip.copy(a)
-
-def press(key):
-	key = str(key).replace("'","")
-
-	if key == "c":
-		copy_otp(output)
-
-	else:
-		os.system("cls")
+output = "a"
 
 def change_settings():
 		global time
@@ -55,17 +50,27 @@ if __name__ == '__main__':
 
 				def scan(port):
 
+					global output
+
 					if s.connect_ex((host, port)):
 						print("port: closed")
 						output = "port: closed"
 					else:
 						print("port: open" )
 						output = "port: open"
+
 				scan(port)
 				
-				with Listener(on_press=press) as l:
-					l.join()
-				
+				print("press c to copy")
+				while True:
+					if keyboard.is_pressed('c'):
+						
+						pyperclip.copy(output)
+						sleep(0.25)
+						break
+
+					else:
+						break
 
 
 
