@@ -1,7 +1,28 @@
 import socket
 import os
+try:
+	import pyperclip
+	from pynput.keyboard import Listener
+
+except ImportError:
+
+	os.system("pip3 install pyperclip")
+	os.system("pip3 install keyboard")
 
 time = 0
+output = None
+
+def copy_otp(a):
+	pyperclip.copy(a)
+
+def press(key):
+	key = str(key).replace("'","")
+
+	if key == "c":
+		copy_otp(output)
+
+	else:
+		os.system("cls")
 
 def change_settings():
 		global time
@@ -21,7 +42,7 @@ if __name__ == '__main__':
 
 	
 	while True:
-		e = input("Command> ")
+		e = input("Command> ").lower()
 		if e == "run":
 			s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 			see_settings()
@@ -36,13 +57,17 @@ if __name__ == '__main__':
 
 					if s.connect_ex((host, port)):
 						print("port: closed")
-
+						output = "port: closed"
 					else:
 						print("port: open" )
-
+						output = "port: open"
 				scan(port)
-				a = input()
-				os.system("cls")
+				
+				with Listener(on_press=press) as l:
+					l.join()
+				
+
+
 
 			elif port_type == "range":
 
@@ -62,17 +87,40 @@ if __name__ == '__main__':
 				a = input()
 				os.system("cls")
 
+			else:
+				print("#unknown scan type")
+
 		elif e == "settings":
 			see_settings()
 			print("current settings >")
 			print(f"       timeout = {time}")
 
-			mr = input("Command> ")
+		elif e == "change":
+			change_settings()
 
-			if mr == "change":
-				change_settings()
+		elif e == "exit":
+			exit()
 
-			else:
-				print("#unknown Command")
-				print(mr)
+		elif e == "help":
+			print('''
+  
+1.run = run the scan
+  
+2.settings = change settings
+	 ____|___________________________________
+	|1.change = to change the timeout setting|
+	 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+3.exit = exit the tool
+
+</> Types of port scans:
+	
+	<+> base : scans only on port
+	<+> range : scans more than one port ; e.g/ 80-85
+
+
+''')
+
+		else:
+			print("#unknown Command")
 
