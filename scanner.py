@@ -1,19 +1,14 @@
+#!/usr/bin/python3
+
+#inbuilt modules
 import socket
 import os
 from time import sleep
 
-try:
-	import pyperclip
-	import Keyboard
-
-except ImportError:
-	os.system("pip3 install pyperclip")
-	os.system("pip3 install keyboard")
-
-finally:
-
-	import keyboard
-	import pyperclip
+#external modules
+import pyperclip
+import keyboard
+import pyautogui
 
 
 time = 0
@@ -64,20 +59,14 @@ if __name__ == '__main__':
 
 				scan(port)
 				
-				print("press c to copy")
+				print("press ctrl to copy")
+
 				while True:
-					if keyboard.is_pressed('c'):
+					if keyboard.is_pressed('ctrl'):
 						
 						pyperclip.copy(output)
-						sleep(0.25)
+
 						break
-						os.system("cls")
-
-					else:
-						break
-						os.system("cls")
-
-
 
 			elif port_type == "range":
 
@@ -98,18 +87,14 @@ if __name__ == '__main__':
 
 				scan(int(port[0]), int(port[1]))
 
-				print("press c to copy")
-				while True:
-					if keyboard.is_pressed('c'):
-						w = str(otp).replace("'","").replace("[","").replace("]","").replace(",","\n")
-						pyperclip.copy()
-						sleep(0.25)
-						break
-						os.system("cls")
+				print("press ctrl to copy")
 
-					else:
+				while True:
+					if keyboard.is_pressed('ctrl'):
+						w = str(otp).replace("'","").replace("[","").replace("]","").replace(",","\n")
+						pyperclip.copy(w)
+						
 						break
-						os.system("cls")
 				
 			else:
 				print("#unknown scan type")
@@ -124,6 +109,9 @@ if __name__ == '__main__':
 
 		elif e == "exit":
 			exit()
+
+		elif e == "clear":
+			os.system("cls")
 
 		elif e == "help":
 			print('''
