@@ -8,8 +8,6 @@ from time import sleep
 #external modules
 import pyperclip
 import keyboard
-import pyautogui
-
 
 time = 0
 
