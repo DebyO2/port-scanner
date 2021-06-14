@@ -123,6 +123,8 @@ if __name__ == '__main__':
 
 3.exit = exit the tool
 
+4.clear = clears the screen
+
 </> Types of port scans:
 	
 	<+> base : scans only on port
